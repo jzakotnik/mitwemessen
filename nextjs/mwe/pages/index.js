@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -66,6 +67,10 @@ export default function Home() {
     console.log(evt.target.name + ": " + evt.target.checked);
     setDayselection({ ...dayselection, [evt.target.name]: evt.target.checked });
   };
+
+  const router = useRouter();
+  const { pid } = router.query;
+  console.log(pid);
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
