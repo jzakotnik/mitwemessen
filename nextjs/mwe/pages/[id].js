@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import LunchProfile from "./lunchprofile";
 
 export default function profile({ id }) {
   console.log("Rendering page..");
-  console.log(id.id);
-  return <p>hallo {id}</p>;
+  console.log(id);
+  return <LunchProfile userName={id} />;
 }
 
 export function getProfileData(id) {
