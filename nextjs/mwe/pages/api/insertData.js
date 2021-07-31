@@ -4,8 +4,19 @@ var level = require("level-rocksdb");
 
 export default function handler(req, res) {
   var db = level("./lunchdb");
+  console.log("Inserting data into DB");
   console.log(req.body);
-  db.put("juresUUID", JSON.stringify(req.body), function (err) {
+  const authurl = req.body.authurl;
+  const lunchprofile = req.body.lunchprofile;
+
+  db.put(
+    authurl.admin,
+    { lunchprofile, reader: authurl.reader, admin: true },
+    function (err) {
+      if (err) return console.log("Ooops!", err); // some kind of I/O error
+    }
+  );
+  db.put(authurl.reader, { lunchprofile, admin: false }, function (err) {
     if (err) return console.log("Ooops!", err); // some kind of I/O error
   });
   db.close();

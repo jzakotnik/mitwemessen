@@ -41,11 +41,18 @@ export default function Admin(props) {
     event.preventDefault();
     const adminID = uuidv4();
     const readerID = uuidv4();
+    const defaultLunchProfile = {
+      mon: true,
+      tue: true,
+      wed: true,
+      thu: true,
+      fri: true,
+    };
     setAuthurl({ admin: adminID, reader: readerID });
 
     fetch("http://localhost:3000/api/insertData", {
       method: "POST",
-      body: JSON.stringify(authurl),
+      body: JSON.stringify({ authurl, defaultLunchProfile }),
       headers: {
         "Content-Type": "application/json",
       },
