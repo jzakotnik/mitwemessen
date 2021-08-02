@@ -40,7 +40,7 @@ export default function Admin(props) {
     console.log("Create links..");
     event.preventDefault();
     const authid = { admin: uuidv4(), reader: uuidv4() };
-    const defaultLunchProfile = {
+    const dayselection = {
       mon: true,
       tue: true,
       wed: true,
@@ -50,7 +50,7 @@ export default function Admin(props) {
 
     fetch("http://localhost:3000/api/insertData", {
       method: "POST",
-      body: JSON.stringify({ authid, defaultLunchProfile }),
+      body: JSON.stringify({ authid, dayselection }),
       headers: {
         "Content-Type": "application/json",
       },
