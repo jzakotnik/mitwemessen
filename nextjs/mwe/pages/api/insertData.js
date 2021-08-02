@@ -7,9 +7,11 @@ export default function handler(req, res) {
   console.log("Inserting data into DB");
   console.log(req.body);
   console.log(req.body.authid);
-  console.log(req.body.defaultLunchProfile);
+  console.log(req.body.dayselection);
+
   const authid = req.body.authid;
-  const lunchprofile = req.body.defaultLunchProfile;
+  const readerid = req.body.readerid;
+  const lunchprofile = req.body.dayselection;
 
   db.put(
     authid.admin,
