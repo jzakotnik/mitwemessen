@@ -6,19 +6,27 @@ export default function handler(req, res) {
   var db = level("./lunchdb");
   console.log("Inserting data into DB");
   console.log(req.body);
-  const authurl = req.body.authurl;
-  const lunchprofile = req.body.lunchprofile;
+  console.log(req.body.authid);
+  console.log(req.body.defaultLunchProfile);
+  const authid = req.body.authid;
+  const lunchprofile = req.body.defaultLunchProfile;
 
   db.put(
-    authurl.admin,
-    { lunchprofile, reader: authurl.reader, admin: true },
+    authid.admin,
+    JSON.stringify({ lunchprofile, reader: authid.reader, admin: true }),
     function (err) {
-      if (err) return console.log("Ooops!", err); // some kind of I/O error
+      if (err)
+        return console.log("Inserting of new admin URL did not work", err); // some kind of I/O error
     }
   );
-  db.put(authurl.reader, { lunchprofile, admin: false }, function (err) {
-    if (err) return console.log("Ooops!", err); // some kind of I/O error
-  });
+  db.put(
+    authid.reader,
+    JSON.stringify({ lunchprofile, admin: false }),
+    function (err) {
+      if (err)
+        return console.log("Inserting of new reader URL did not work", err); // some kind of I/O error
+    }
+  );
   db.close();
 
   res.end().status(200);

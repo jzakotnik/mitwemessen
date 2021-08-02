@@ -39,25 +39,26 @@ export default function Admin(props) {
   const handleCreate = (event) => {
     console.log("Create links..");
     event.preventDefault();
-    const adminID = uuidv4();
-    const readerID = uuidv4();
+    const authid = { admin: uuidv4(), reader: uuidv4() };
     const defaultLunchProfile = {
       mon: true,
       tue: true,
-      wed: true,
+      wed: false,
       thu: true,
       fri: true,
     };
-    setAuthurl({ admin: adminID, reader: readerID });
 
     fetch("http://localhost:3000/api/insertData", {
       method: "POST",
-      body: JSON.stringify({ authurl, defaultLunchProfile }),
+      body: JSON.stringify({ authid, defaultLunchProfile }),
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => console.log("Success:", JSON.stringify(response)))
+      .then((response) => {
+        console.log("Success:", JSON.stringify(response));
+        setAuthurl(authid);
+      })
       .catch((error) => console.error("Error:", error));
   };
 

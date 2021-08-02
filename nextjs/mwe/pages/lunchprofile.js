@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -44,6 +44,12 @@ export default function LunchProfile(props) {
     thu: true,
     fri: true,
   });
+
+  useEffect(() => {
+    console.log("Use Effect with props:");
+    console.log(props);
+    setDayselection(props.lunchdata);
+  }, [props]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

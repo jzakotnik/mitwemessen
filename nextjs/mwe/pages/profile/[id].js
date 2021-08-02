@@ -18,11 +18,11 @@ const Profile = (data) => {
 };
 
 // This gets called on every request
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(
-    "http://localhost:3000/api/getData?id=48bf4e6a-c92e-4d7c-9fad-6e141685fb31"
-  );
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  console.log("Page get server side props for page: " + id);
+
+  const res = await fetch("http://localhost:3000/api/getData?id=" + id);
   const data = await res.json();
   console.log("Received response from API");
   console.log(data);
