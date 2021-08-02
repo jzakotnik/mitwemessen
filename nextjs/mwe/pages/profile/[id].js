@@ -6,11 +6,13 @@ const Profile = (data) => {
   const router = useRouter();
   const { id } = router.query;
   console.log("Rendering data");
-  console.log(data);
+  console.log(data, id);
 
   return (
     <LunchProfile
       lunchdata={data.lunchprofile}
+      authid={id}
+      reader={data.reader}
       admin={data.admin}
       userName="Jure"
     />

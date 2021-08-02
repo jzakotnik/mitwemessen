@@ -7,7 +7,11 @@ export default function handler(req, res) {
   console.log("Got request for the database");
   console.log(req.query.id);
   db.get(req.query.id, function (err, value) {
-    if (err) return console.log("DB request failed", err); // likely the key was not found
+    if (err) {
+      db.close();
+      res.end(value);
+      return console.log("DB request failed", err);
+    } // likely the key was not found
     console.log(value);
     db.close();
     res.end(value);

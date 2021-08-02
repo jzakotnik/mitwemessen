@@ -43,7 +43,7 @@ export default function Admin(props) {
     const defaultLunchProfile = {
       mon: true,
       tue: true,
-      wed: false,
+      wed: true,
       thu: true,
       fri: true,
     };

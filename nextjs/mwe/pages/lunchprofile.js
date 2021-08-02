@@ -45,6 +45,10 @@ export default function LunchProfile(props) {
     fri: true,
   });
 
+  const readOnly = !props.admin;
+  const authid = props.authid;
+  const readerid = props.reader;
+
   useEffect(() => {
     console.log("Use Effect with props:");
     console.log(props);
@@ -54,7 +58,8 @@ export default function LunchProfile(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     //console.log(event);
-    const data = dayselection;
+
+    const data = { dayselection, authid: { admin: authid, reader: readerid } };
     console.log("Saving..");
     console.log(JSON.stringify(data));
 
