@@ -46,6 +46,8 @@ export default function LunchProfile(props) {
   });
 
   const readOnly = !props.admin;
+
+  console.log("This page read only? Lets see: " + readOnly);
   const authid = props.authid;
   const readerid = props.reader;
 
@@ -127,6 +129,7 @@ export default function LunchProfile(props) {
                     name="mon"
                     checked={dayselection.mon}
                     onChange={handleInput}
+                    disabled={readOnly}
                     inputProps={{ "aria-label": "controlled" }}
                   />
                 }
@@ -137,6 +140,7 @@ export default function LunchProfile(props) {
                   <Switch
                     name="tue"
                     checked={dayselection.tue}
+                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -148,6 +152,7 @@ export default function LunchProfile(props) {
                   <Switch
                     name="wed"
                     checked={dayselection.wed}
+                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -159,6 +164,7 @@ export default function LunchProfile(props) {
                   <Switch
                     name="thu"
                     checked={dayselection.thu}
+                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -170,6 +176,7 @@ export default function LunchProfile(props) {
                   <Switch
                     name="fri"
                     checked={dayselection.fri}
+                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
