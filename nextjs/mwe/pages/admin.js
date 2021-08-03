@@ -9,9 +9,11 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import Typography from "@material-ui/core/Typography";
 import FormGroup from "@material-ui/core/FormGroup";
+import IconButton from "@material-ui/core/IconButton";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -39,7 +41,6 @@ export default function Admin(props) {
   const handleCreate = (event) => {
     console.log("Create links at " + process.env.NEXT_PUBLIC_API_ENDPOINT);
     console.log("Reader link at " + process.env.NEXT_PUBLIC_PROFILE_ENDPOINT);
-
     event.preventDefault();
     const authid = { admin: uuidv4(), reader: uuidv4() };
     const dayselection = {
@@ -49,7 +50,6 @@ export default function Admin(props) {
       thu: true,
       fri: true,
     };
-
     fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/insertData", {
       method: "POST",
       body: JSON.stringify({ authid, dayselection }),
@@ -62,6 +62,18 @@ export default function Admin(props) {
         setAuthurl(authid);
       })
       .catch((error) => console.error("Error:", error));
+  };
+
+  const handleCopyAdmin = (event) => {
+    navigator.clipboard.writeText(
+      process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin
+    );
+  };
+
+  const handleCopyReader = (event) => {
+    navigator.clipboard.writeText(
+      process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.reader
+    );
   };
 
   return (
@@ -101,32 +113,24 @@ export default function Admin(props) {
           </Typography>
           <Box noValidate sx={{ mt: 1 }}>
             <FormGroup sx={{ mt: 4 }}>
-              <TextField
-                id="outlined-read-only-input"
-                name="adminInput"
-                label="Admin Link"
-                margin="normal"
-                value={
-                  process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin
-                }
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id="outlined-read-only-input"
-                name="readerInput"
-                label="Leser Link"
-                margin="normal"
-                value={
-                  process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
+              <Typography margin="normal">
+                <b>Admin Link:</b>{" "}
+                <IconButton aria-label="copy" onClick={handleCopyAdmin}>
+                  <FileCopyIcon />
+                </IconButton>
+                <br></br>
+                {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin}
+              </Typography>
+              <Typography>
+                <b>Leser Link:</b>
+                <IconButton aria-label="copy" onClick={handleCopyReader}>
+                  <FileCopyIcon />
+                </IconButton>{" "}
+                <br></br>
+                {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
                   "/" +
-                  authurl.reader
-                }
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
+                  authurl.reader}
+              </Typography>
             </FormGroup>
             <Button
               type="submit"
