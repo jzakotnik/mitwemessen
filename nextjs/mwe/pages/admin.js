@@ -37,7 +37,9 @@ export default function Admin(props) {
   const [authurl, setAuthurl] = useState({ admin: "Keiner", reader: "Keiner" });
 
   const handleCreate = (event) => {
-    console.log("Create links..");
+    console.log("Create links at " + process.env.NEXT_PUBLIC_API_ENDPOINT);
+    console.log("Reader link at " + process.env.NEXT_PUBLIC_PROFILE_ENDPOINT);
+
     event.preventDefault();
     const authid = { admin: uuidv4(), reader: uuidv4() };
     const dayselection = {
@@ -48,7 +50,7 @@ export default function Admin(props) {
       fri: true,
     };
 
-    fetch("http://localhost:3000/api/insertData", {
+    fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/insertData", {
       method: "POST",
       body: JSON.stringify({ authid, dayselection }),
       headers: {
@@ -104,7 +106,9 @@ export default function Admin(props) {
                 name="adminInput"
                 label="Admin Link"
                 margin="normal"
-                value={authurl.admin}
+                value={
+                  process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin
+                }
                 InputProps={{
                   readOnly: true,
                 }}
@@ -114,7 +118,11 @@ export default function Admin(props) {
                 name="readerInput"
                 label="Leser Link"
                 margin="normal"
-                value={authurl.reader}
+                value={
+                  process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
+                  "/" +
+                  authurl.reader
+                }
                 InputProps={{
                   readOnly: true,
                 }}

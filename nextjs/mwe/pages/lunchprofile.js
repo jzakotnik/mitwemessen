@@ -65,7 +65,7 @@ export default function LunchProfile(props) {
     console.log("Saving..");
     console.log(JSON.stringify(data));
 
-    fetch("http://localhost:3000/api/insertData", {
+    fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/insertData", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -80,6 +80,21 @@ export default function LunchProfile(props) {
     console.log(evt.target.name + ": " + evt.target.checked);
     setDayselection({ ...dayselection, [evt.target.name]: evt.target.checked });
   };
+
+  function SaveButton(props) {
+    if (!props.readOnly) {
+      return (
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Speichern
+        </Button>
+      );
+    } else return "";
+  }
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -184,14 +199,7 @@ export default function LunchProfile(props) {
                 label="Freitag"
               />
             </FormGroup>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Speichern
-            </Button>
+            <SaveButton readOnly={readOnly} />
 
             <Impressum sx={{ mt: 5 }} />
           </Box>

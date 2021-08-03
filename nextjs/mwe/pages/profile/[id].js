@@ -24,7 +24,9 @@ export async function getServerSideProps(context) {
   const { id } = context.query;
   console.log("Page get server side props for page: " + id);
 
-  const res = await fetch("http://localhost:3000/api/getData?id=" + id);
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/getData?id=" + id
+  );
   const data = await res.json();
   console.log("Received response from API");
   console.log(data);
