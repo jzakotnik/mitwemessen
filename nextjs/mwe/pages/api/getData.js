@@ -1,19 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-var level = require("level-rocksdb");
+import { PrismaClient } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
 
-export default function handler(req, res) {
-  var db = level("./lunchdb");
+const prisma = new PrismaClient();
+
+export default async function handler(req, res) {
   console.log("Got request for the database");
   console.log(req.query.id);
-  db.get(req.query.id, function (err, value) {
-    if (err) {
-      db.close();
-      res.end(value);
-      return console.log("DB request failed", err);
-    } // likely the key was not found
-    console.log(value);
-    db.close();
-    res.end(value);
+  const result = await prisma.user.findFirst({
+    where: { public_id: req.query.id },
+    include: { lunchprofile: true },
   });
+  console.log(result);
+  res.status(200).json(result.lunchprofile);
 }

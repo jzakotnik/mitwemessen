@@ -1,48 +1,44 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { PrismaClient } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
 
-var level = require("level-rocksdb");
+const prisma = new PrismaClient();
 
-export default function handler(req, res) {
-  var db = level("./lunchdb");
+/*
+{
+  authid: {
+    admin: 'ebb785b4-d140-40fc-9cd7-577d121bed23',
+    reader: 'f05ddd03-1013-4b86-9a66-cf0b78ceac01'
+  },
+  dayselection: { mon: true, tue: true, wed: true, thu: true, fri: true }
+}
+
+*/
+
+async function insertUser(req) {
+  const authid = req.body.authid;
+  console.log(req.body);
+  //const lunchprofile = req.body.dayselection;
+
+  await prisma.user.create({
+    data: {
+      public_id: authid.reader,
+      private_id: authid.admin,
+      name: "tbd",
+      lunchprofile: {
+        create: { mon: true, tue: true, wed: true, thu: true, fri: true },
+      },
+    },
+  });
+  return prisma.user.findMany();
+}
+
+export default async function handler(req, res) {
   console.log("Inserting data into DB");
   console.log(req.body);
-  const authid = req.body.authid;
-  const lunchprofile = req.body.dayselection;
 
-  db.get(authid.admin, function (err, value) {
-    if (err) {
-      if (err.notFound) {
-        // handle a 'NotFoundError' here
-        return;
-      }
-      // I/O or other error, pass it up the callback chain
-      return callback(err);
-    }
-
-    // .. handle `value` here
-  });
-
-  db.put(
-    authid.admin,
-    JSON.stringify({ lunchprofile, reader: authid.reader, admin: true }),
-    function (err) {
-      if (err) {
-        db.close();
-        return console.log("Inserting of new admin URL did not work", err); // some kind of I/O error
-      }
-    }
-  );
-  db.put(
-    authid.reader,
-    JSON.stringify({ lunchprofile, admin: false }),
-    function (err) {
-      if (err) {
-        db.close();
-        return console.log("Inserting of new reader URL did not work", err); // some kind of I/O error
-      }
-    }
-  );
-  db.close();
+  const allUsers = await insertUser(req);
+  console.log("Inserted user:");
+  console.dir(allUsers);
 
   res.end().status(200);
 }

@@ -8,15 +8,7 @@ const Profile = (data) => {
   console.log("Rendering data");
   console.log(data, id);
 
-  return (
-    <LunchProfile
-      lunchdata={data.lunchprofile}
-      authid={id}
-      reader={data.reader}
-      admin={data.admin}
-      userName="Jure"
-    />
-  );
+  return <LunchProfile lunchdata={data} userName="Jure" />;
 };
 
 // This gets called on every request

@@ -99,7 +99,7 @@ export default function Admin(props) {
             </a>
           </Typography>
           <Typography variant="subtitle2">
-            <b>Leser Link</b>
+            <b>Nur-Lesen Link</b>
             <IconButton aria-label="copy" onClick={handleCopyReader}>
               <FileCopyIcon />
             </IconButton>{" "}

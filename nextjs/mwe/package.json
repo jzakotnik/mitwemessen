@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^5.0.0-beta.2",
     "@material-ui/icons": "^5.0.0-beta.1",
-    "level-rocksdb": "^4.0.0",
+    "@prisma/client": "^2.28.0",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "eslint": "7.31.0",
-    "eslint-config-next": "11.0.1"
+    "eslint-config-next": "11.0.1",
+    "prisma": "^2.28.0"
   }
 }
