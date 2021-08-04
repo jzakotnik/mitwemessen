@@ -37,6 +37,7 @@ function Impressum(props) {
 
 export default function Admin(props) {
   const [authurl, setAuthurl] = useState({ admin: "Keiner", reader: "Keiner" });
+  const [linkCreated, setLinkCreated] = useState(false);
 
   const handleCreate = (event) => {
     console.log("Create links at " + process.env.NEXT_PUBLIC_API_ENDPOINT);
@@ -60,6 +61,7 @@ export default function Admin(props) {
       .then((response) => {
         console.log("Success:", JSON.stringify(response));
         setAuthurl(authid);
+        setLinkCreated(true);
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -74,6 +76,47 @@ export default function Admin(props) {
     navigator.clipboard.writeText(
       process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.reader
     );
+  };
+
+  const AuthLinks = () => {
+    if (linkCreated) {
+      return (
+        <FormGroup sx={{ mt: 4 }}>
+          <Typography variant="subtitle2">
+            <b>Admin Link</b>{" "}
+            <IconButton aria-label="copy" onClick={handleCopyAdmin}>
+              <FileCopyIcon />
+            </IconButton>
+            <br></br>
+            <a
+              href={
+                process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin}
+            </a>
+          </Typography>
+          <Typography variant="subtitle2">
+            <b>Leser Link</b>
+            <IconButton aria-label="copy" onClick={handleCopyReader}>
+              <FileCopyIcon />
+            </IconButton>{" "}
+            <br></br>
+            <a
+              href={
+                process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.reader
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.reader}
+            </a>
+          </Typography>
+        </FormGroup>
+      );
+    } else return null;
   };
 
   return (
@@ -109,51 +152,10 @@ export default function Admin(props) {
             <FastfoodIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Link zum Lunchprofil erzeugen
+            Links zum Lunchprofil erzeugen
           </Typography>
           <Box noValidate sx={{ mt: 1 }}>
-            <FormGroup sx={{ mt: 4 }}>
-              <Typography variant="subtitle2">
-                <b>Admin Link:</b>{" "}
-                <IconButton aria-label="copy" onClick={handleCopyAdmin}>
-                  <FileCopyIcon />
-                </IconButton>
-                <br></br>
-                <a
-                  href={
-                    process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
-                    "/" +
-                    authurl.admin
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
-                    "/" +
-                    authurl.admin}
-                </a>
-              </Typography>
-              <Typography variant="subtitle2">
-                <b>Leser Link:</b>
-                <IconButton aria-label="copy" onClick={handleCopyReader}>
-                  <FileCopyIcon />
-                </IconButton>{" "}
-                <br></br>
-                <a
-                  href={
-                    process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
-                    "/" +
-                    authurl.reader
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
-                    "/" +
-                    authurl.reader}
-                </a>
-              </Typography>
-            </FormGroup>
+            <AuthLinks />
             <Button
               type="submit"
               fullWidth
