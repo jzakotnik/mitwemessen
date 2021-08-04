@@ -105,7 +105,7 @@ export default function LunchProfile(props) {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(https://source.unsplash.com/random)",
+          backgroundImage: "url(../lunch1.jpg)",
           backgroundRepeat: "no-repeat",
           backgroundColor: (theme) =>
             theme.palette.mode === "light"
@@ -129,7 +129,7 @@ export default function LunchProfile(props) {
             <FastfoodIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {props.userName} Mein Lunch Profil
+            Mein Lunch Profil
           </Typography>
           <Box
             component="form"
