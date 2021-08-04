@@ -1,5 +1,6 @@
 #db
 **/nextjs/mwe/prisma/mwe.db
+**/nextjs/mwe/prisma/migrations
 nextjs/mwe/prisma/mwe.db
 # Logs
 logs
@@ -110,3 +111,4 @@ nextjs/mwe/public/.DS_Store
 nextjs/mwe/prisma/mwe.db
 nextjs/mwe/prisma/mwe.db
 nextjs/mwe/prisma/mwe.db
+nextjs/mwe/prisma/mwe.db-journal

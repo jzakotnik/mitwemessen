@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import LunchProfile from "../lunchprofile";
 
 const prisma = new PrismaClient();
 
@@ -24,24 +23,24 @@ async function updateUser(req) {
   console.log("Updating user");
   console.log(req.body);
   const lunchprofile = req.body.dayselection;
-  console.log(lunchprofile);
-  console.log(authid);
+  //console.log(lunchprofile);
+  //console.log(authid);
 
-  const updateLunch = await prisma.lunchprofile.update({
+  const updateLunch = await prisma.lunchProfile.update({
     where: {
-      user: { private_id: authid },
+      id: authid,
     },
     data: lunchprofile,
   });
-  return true;
+  return updateLunch;
 }
 
 export default async function handler(req, res) {
   console.log("Updating data into DB");
   console.log(req.body);
 
-  const allUsers = await updateUser(req);
-  console.log("Updated user:");
+  const newUser = await updateUser(req);
+  console.log("Updated user:" + newUser);
 
   res.end().status(200);
 }

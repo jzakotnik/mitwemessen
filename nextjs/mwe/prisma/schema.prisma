@@ -25,6 +25,6 @@ model LunchProfile {
     thu Boolean @default(true)
     fri Boolean @default(true)
 
-    user User @relation(fields: [id], references: [public_id])
+    user User @relation(fields: [id], references: [private_id])
 
 }
