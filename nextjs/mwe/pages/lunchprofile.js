@@ -45,7 +45,7 @@ export default function LunchProfile(props) {
     fri: true,
   });
 
-  const readOnly = !props.admin;
+  const readOnly = props.readOnly;
 
   console.log("This page read only? Lets see: " + readOnly);
   const authid = props.authid;
@@ -59,13 +59,13 @@ export default function LunchProfile(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //console.log(event);
+    console.log(event);
 
-    const data = { dayselection, authid: { admin: authid, reader: readerid } };
+    const data = { dayselection, authid: { admin: authid } };
     console.log("Saving..");
     console.log(JSON.stringify(data));
 
-    fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/insertData", {
+    fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/updateData", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

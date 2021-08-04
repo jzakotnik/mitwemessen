@@ -12,6 +12,25 @@ export default async function handler(req, res) {
     where: { public_id: req.query.id },
     include: { lunchprofile: true },
   });
-  console.log(result);
-  res.status(200).json(result.lunchprofile);
+  //found reader link
+  if (result != null) {
+    return res
+      .status(200)
+      .json({ admin: false, lunchprofile: result.lunchprofile });
+  }
+
+  const result2 = await prisma.user.findFirst({
+    where: { private_id: req.query.id },
+    include: { lunchprofile: true },
+  });
+  console.log("Private ID: " + JSON.stringify(result2));
+
+  //found admin link
+  if (result2 != null) {
+    return res
+      .status(200)
+      .json({ admin: true, lunchprofile: result2.lunchprofile });
+  }
+  //found nothing
+  return res.status(400).end();
 }

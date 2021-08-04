@@ -1,6 +1,6 @@
 #db
-**/nextjs/mwe/lunchdb
-
+**/nextjs/mwe/prisma/mwe.db
+nextjs/mwe/prisma/mwe.db
 # Logs
 logs
 *.log
@@ -107,3 +107,6 @@ dist
 .tern-port
 nextjs/mwe/.env.production
 nextjs/mwe/public/.DS_Store
+nextjs/mwe/prisma/mwe.db
+nextjs/mwe/prisma/mwe.db
+nextjs/mwe/prisma/mwe.db
