@@ -6,9 +6,21 @@ export default function handler(req, res) {
   var db = level("./lunchdb");
   console.log("Inserting data into DB");
   console.log(req.body);
-
   const authid = req.body.authid;
   const lunchprofile = req.body.dayselection;
+
+  db.get(authid.admin, function (err, value) {
+    if (err) {
+      if (err.notFound) {
+        // handle a 'NotFoundError' here
+        return;
+      }
+      // I/O or other error, pass it up the callback chain
+      return callback(err);
+    }
+
+    // .. handle `value` here
+  });
 
   db.put(
     authid.admin,
