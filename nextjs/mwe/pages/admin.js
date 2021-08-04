@@ -113,23 +113,45 @@ export default function Admin(props) {
           </Typography>
           <Box noValidate sx={{ mt: 1 }}>
             <FormGroup sx={{ mt: 4 }}>
-              <Typography margin="normal">
+              <Typography variant="subtitle2">
                 <b>Admin Link:</b>{" "}
                 <IconButton aria-label="copy" onClick={handleCopyAdmin}>
                   <FileCopyIcon />
                 </IconButton>
                 <br></br>
-                {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin}
+                <a
+                  href={
+                    process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
+                    "/" +
+                    authurl.admin
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
+                    "/" +
+                    authurl.admin}
+                </a>
               </Typography>
-              <Typography>
+              <Typography variant="subtitle2">
                 <b>Leser Link:</b>
                 <IconButton aria-label="copy" onClick={handleCopyReader}>
                   <FileCopyIcon />
                 </IconButton>{" "}
                 <br></br>
-                {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
-                  "/" +
-                  authurl.reader}
+                <a
+                  href={
+                    process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
+                    "/" +
+                    authurl.reader
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT +
+                    "/" +
+                    authurl.reader}
+                </a>
               </Typography>
             </FormGroup>
             <Button
