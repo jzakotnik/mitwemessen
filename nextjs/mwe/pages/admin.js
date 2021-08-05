@@ -150,8 +150,8 @@ export default function Admin(props) {
             Links zum Lunchprofil erzeugen
           </Typography>
           <Typography component="body1" variant="body1">
-            Wenn Du "Erzeugen" klickst werden zwei Web-Links erzeugt, mit denen
-            Du Dein Lunch-Profil verwalten kannst.
+            Wenn Du <i>Erzeugen</i> klickst werden zwei Web-Links erzeugt, mit
+            denen Du Dein Lunch-Profil verwalten kannst.
             <ul>
               <li>
                 Den Leser-Link kannst Du verteilen (z.B. im eMail Footer) und so
