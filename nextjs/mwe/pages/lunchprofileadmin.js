@@ -27,6 +27,7 @@ export default function LunchProfileAdmin(props) {
     thu: true,
     fri: true,
   });
+  const [saving, setSaving] = useState(false);
 
   const authid = props.authid;
   const readerid = props.reader;
@@ -37,6 +38,7 @@ export default function LunchProfileAdmin(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    //setSaving(true);
     console.log(event);
 
     const data = { dayselection, authid: { admin: authid } };
@@ -50,7 +52,10 @@ export default function LunchProfileAdmin(props) {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => console.log("Success:", JSON.stringify(response)))
+      .then((response) => {
+        //setSaving(true);
+        console.log("Success:", JSON.stringify(response));
+      })
       .catch((error) => console.error("Error:", error));
   };
 
@@ -61,7 +66,13 @@ export default function LunchProfileAdmin(props) {
 
   function SaveButton(props) {
     return (
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+      <Button
+        type="submit"
+        disabled={saving}
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >
         Speichern
       </Button>
     );
