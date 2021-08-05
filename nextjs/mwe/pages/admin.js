@@ -107,7 +107,9 @@ export default function Admin(props) {
               {readerLink}
             </a>
             <br></br>
-            <QRCode value={readerLink} />
+            <center>
+              <QRCode value={readerLink} />
+            </center>
           </Typography>
         </FormGroup>
       );
