@@ -14,6 +14,7 @@ import FastfoodIcon from "@material-ui/icons/Fastfood";
 import Typography from "@material-ui/core/Typography";
 import FormGroup from "@material-ui/core/FormGroup";
 import IconButton from "@material-ui/core/IconButton";
+import QRCode from "qrcode.react";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -79,6 +80,10 @@ export default function Admin(props) {
   };
 
   const AuthLinks = () => {
+    const adminLink =
+      process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin;
+    const readerLink =
+      process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.reader;
     if (linkCreated) {
       return (
         <FormGroup sx={{ mt: 4 }}>
@@ -88,14 +93,8 @@ export default function Admin(props) {
               <FileCopyIcon />
             </IconButton>
             <br></br>
-            <a
-              href={
-                process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.admin}
+            <a href={adminLink} target="_blank" rel="noopener noreferrer">
+              {adminLink}
             </a>
           </Typography>
           <Typography variant="subtitle2">
@@ -104,15 +103,11 @@ export default function Admin(props) {
               <FileCopyIcon />
             </IconButton>{" "}
             <br></br>
-            <a
-              href={
-                process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.reader
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + authurl.reader}
+            <a href={readerLink} target="_blank" rel="noopener noreferrer">
+              {readerLink}
             </a>
+            <br></br>
+            <QRCode value={readerLink} />
           </Typography>
         </FormGroup>
       );
@@ -153,6 +148,21 @@ export default function Admin(props) {
           </Avatar>
           <Typography component="h1" variant="h5">
             Links zum Lunchprofil erzeugen
+          </Typography>
+          <Typography component="body1" variant="body1">
+            Wenn Du "Erzeugen" klickst werden zwei Web-Links erzeugt, mit denen
+            Du Dein Lunch-Profil verwalten kannst.
+            <ul>
+              <li>
+                Den Leser-Link kannst Du verteilen (z.B. im eMail Footer) und so
+                können Deine Kontakte sehen, wann Du potentiell Zeit für Lunch
+                hast.{" "}
+              </li>
+              <li>
+                Mit dem Admin Link kannst Du Dein Lunch-Profil verändern, also
+                halte diesen geheim.
+              </li>
+            </ul>
           </Typography>
           <Box noValidate sx={{ mt: 1 }}>
             <AuthLinks />

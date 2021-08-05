@@ -17,26 +17,9 @@ import Typography from "@material-ui/core/Typography";
 import FormGroup from "@material-ui/core/FormGroup";
 
 import Switch from "@material-ui/core/Switch";
+import Impressum from "./impressum";
 
-function Impressum(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Impressum "}
-      <Link color="inherit" href="https://github.com/jzakotnik">
-        jzakotnik github
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-export default function LunchProfile(props) {
+export default function LunchProfileAdmin(props) {
   const [dayselection, setDayselection] = useState({
     mon: true,
     tue: true,
@@ -45,15 +28,10 @@ export default function LunchProfile(props) {
     fri: true,
   });
 
-  const readOnly = props.readOnly;
-
-  console.log("This page read only? Lets see: " + readOnly);
   const authid = props.authid;
   const readerid = props.reader;
 
   useEffect(() => {
-    console.log("Use Effect with props:");
-    console.log(props);
     setDayselection(props.lunchdata);
   }, [props]);
 
@@ -77,23 +55,16 @@ export default function LunchProfile(props) {
   };
 
   const handleInput = (evt) => {
-    console.log(evt.target.name + ": " + evt.target.checked);
+    //console.log(evt.target.name + ": " + evt.target.checked);
     setDayselection({ ...dayselection, [evt.target.name]: evt.target.checked });
   };
 
   function SaveButton(props) {
-    if (!props.readOnly) {
-      return (
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Speichern
-        </Button>
-      );
-    } else return "";
+    return (
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        Speichern
+      </Button>
+    );
   }
 
   return (
@@ -131,6 +102,9 @@ export default function LunchProfile(props) {
           <Typography component="h1" variant="h5">
             Mein Lunch Profil
           </Typography>
+          <Typography component="subtitle1" variant="subtitle1">
+            An diesen Tagen habe ich typischerweise Zeit für einen Lunch
+          </Typography>
           <Box
             component="form"
             noValidate
@@ -144,7 +118,6 @@ export default function LunchProfile(props) {
                     name="mon"
                     checked={dayselection.mon}
                     onChange={handleInput}
-                    disabled={readOnly}
                     inputProps={{ "aria-label": "controlled" }}
                   />
                 }
@@ -155,7 +128,6 @@ export default function LunchProfile(props) {
                   <Switch
                     name="tue"
                     checked={dayselection.tue}
-                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -167,7 +139,6 @@ export default function LunchProfile(props) {
                   <Switch
                     name="wed"
                     checked={dayselection.wed}
-                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -179,7 +150,6 @@ export default function LunchProfile(props) {
                   <Switch
                     name="thu"
                     checked={dayselection.thu}
-                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -191,7 +161,6 @@ export default function LunchProfile(props) {
                   <Switch
                     name="fri"
                     checked={dayselection.fri}
-                    disabled={readOnly}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -199,7 +168,7 @@ export default function LunchProfile(props) {
                 label="Freitag"
               />
             </FormGroup>
-            <SaveButton readOnly={readOnly} />
+            <SaveButton />
 
             <Impressum sx={{ mt: 5 }} />
           </Box>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import LunchProfile from "../lunchprofile";
+import LunchProfileAdmin from "../lunchprofileadmin";
+import LunchProfileRead from "../lunchprofileread";
 
 const Profile = (data) => {
   const router = useRouter();
@@ -8,14 +9,26 @@ const Profile = (data) => {
   console.log("Rendering data");
   console.log(data, id);
 
-  return (
-    <LunchProfile
-      lunchdata={data.lunchprofile}
-      authid={id}
-      readOnly={!data.admin}
-      userName="Jure"
-    />
-  );
+  const readOnly = !data.admin;
+  if (!readOnly) {
+    return (
+      <LunchProfileAdmin
+        lunchdata={data.lunchprofile}
+        authid={id}
+        readOnly={readOnly}
+        userName="Jure"
+      />
+    );
+  } else {
+    return (
+      <LunchProfileRead
+        lunchdata={data.lunchprofile}
+        authid={id}
+        readOnly={readOnly}
+        userName="Jure"
+      />
+    );
+  }
 };
 
 // This gets called on every request

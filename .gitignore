@@ -75,6 +75,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -112,3 +113,4 @@ nextjs/mwe/prisma/mwe.db
 nextjs/mwe/prisma/mwe.db
 nextjs/mwe/prisma/mwe.db
 nextjs/mwe/prisma/mwe.db-journal
+nextjs/mwe/.env.local
