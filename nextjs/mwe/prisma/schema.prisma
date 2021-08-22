@@ -18,12 +18,13 @@ model User {
 }
 
 model LunchProfile {
-    id  String  @id @unique
-    mon Boolean @default(true)
-    tue Boolean @default(true)
-    wed Boolean @default(true)
-    thu Boolean @default(true)
-    fri Boolean @default(true)
+    id         String  @id @unique
+    mon        Boolean @default(true)
+    tue        Boolean @default(true)
+    wed        Boolean @default(true)
+    thu        Boolean @default(true)
+    fri        Boolean @default(true)
+    lunchtopic Int     @default(50)
 
     user User @relation(fields: [id], references: [private_id])
 

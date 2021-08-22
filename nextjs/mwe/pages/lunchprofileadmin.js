@@ -15,25 +15,63 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import Typography from "@material-ui/core/Typography";
 import FormGroup from "@material-ui/core/FormGroup";
+import Slider from "@material-ui/core/Slider";
 
 import Switch from "@material-ui/core/Switch";
+import Divider from "@material-ui/core/Divider";
 import Impressum from "./impressum";
 
+const marks = [
+  {
+    value: 0,
+    label: "Lieber Privates",
+  },
+  {
+    value: 50,
+    label: "Ist mir egal",
+  },
+  {
+    value: 100,
+    label: "Lieber Arbeit",
+  },
+];
+
+function valuetext(value) {
+  return `${value}%`;
+}
+
+const lunchtime = [
+  {
+    value: 0,
+    label: "11:00",
+  },
+  {
+    value: 50,
+    label: "13:00",
+  },
+  {
+    value: 100,
+    label: "14:00",
+  },
+];
+
 export default function LunchProfileAdmin(props) {
-  const [dayselection, setDayselection] = useState({
+  const [lunchProfile, setLunchProfile] = useState({
     mon: true,
     tue: true,
     wed: true,
     thu: true,
     fri: true,
+    lunchtopic: 50,
   });
+
   const [saving, setSaving] = useState(false);
 
   const authid = props.authid;
   const readerid = props.reader;
 
   useEffect(() => {
-    setDayselection(props.lunchdata);
+    setLunchProfile(props.lunchdata);
   }, [props]);
 
   const handleSubmit = (event) => {
@@ -41,7 +79,7 @@ export default function LunchProfileAdmin(props) {
     //setSaving(true);
     console.log(event);
 
-    const data = { dayselection, authid: { admin: authid } };
+    const data = { lunchProfile, authid: { admin: authid } };
     console.log("Saving..");
     console.log(JSON.stringify(data));
 
@@ -61,13 +99,18 @@ export default function LunchProfileAdmin(props) {
 
   const handleInput = (evt) => {
     //console.log(evt.target.name + ": " + evt.target.checked);
-    setDayselection({ ...dayselection, [evt.target.name]: evt.target.checked });
+    setLunchProfile({ ...lunchProfile, [evt.target.name]: evt.target.checked });
+  };
+
+  const handleLunchTopic = (e) => {
+    setLunchProfile({ ...lunchProfile, lunchtopic: e.target.value });
   };
 
   function SaveButton(props) {
     return (
       <Button
         type="submit"
+        onClick={handleSubmit}
         disabled={saving}
         fullWidth
         variant="contained"
@@ -100,34 +143,42 @@ export default function LunchProfileAdmin(props) {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box
           sx={{
-            my: 8,
-            mx: 4,
+            mt: 6,
+            my: 4,
+            mx: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <FastfoodIcon />
-          </Avatar>
+          {" "}
           <Typography component="h1" variant="h5">
             Mein Lunch Profil
           </Typography>
-          <Typography component="subtitle1" variant="subtitle1">
-            An diesen Tagen habe ich typischerweise Zeit für einen Lunch
-          </Typography>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <FastfoodIcon />
+          </Avatar>
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
+            sx={{
+              mt: 1,
+              my: 5,
+              mx: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "left",
+            }}
           >
+            <Typography component="subtitle1" variant="subtitle1">
+              Typischerweise Zeit am
+            </Typography>
             <FormGroup>
               <FormControlLabel
                 control={
                   <Switch
                     name="mon"
-                    checked={dayselection.mon}
+                    checked={lunchProfile.mon}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -138,7 +189,7 @@ export default function LunchProfileAdmin(props) {
                 control={
                   <Switch
                     name="tue"
-                    checked={dayselection.tue}
+                    checked={lunchProfile.tue}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -149,7 +200,7 @@ export default function LunchProfileAdmin(props) {
                 control={
                   <Switch
                     name="wed"
-                    checked={dayselection.wed}
+                    checked={lunchProfile.wed}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -160,7 +211,7 @@ export default function LunchProfileAdmin(props) {
                 control={
                   <Switch
                     name="thu"
-                    checked={dayselection.thu}
+                    checked={lunchProfile.thu}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -171,7 +222,7 @@ export default function LunchProfileAdmin(props) {
                 control={
                   <Switch
                     name="fri"
-                    checked={dayselection.fri}
+                    checked={lunchProfile.fri}
                     onChange={handleInput}
                     inputProps={{ "aria-label": "controlled" }}
                   />
@@ -179,10 +230,37 @@ export default function LunchProfileAdmin(props) {
                 label="Freitag"
               />
             </FormGroup>
-            <SaveButton />
-
-            <Impressum sx={{ mt: 5 }} />
           </Box>
+          <Box
+            component="form"
+            noValidate
+            sx={{
+              mt: 1,
+              my: 5,
+              mx: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "left",
+            }}
+          >
+            <Typography component="subtitle1" variant="subtitle1">
+              Lieblingsthema beim Essen
+            </Typography>
+            <Slider
+              aria-label="Essensthema"
+              value={lunchProfile.lunchtopic}
+              getAriaValueText={valuetext}
+              step={10}
+              onChange={handleLunchTopic}
+              valueLabelDisplay="auto"
+              marks={marks}
+              sx={{
+                width: "95%",
+              }}
+            />
+          </Box>
+          <SaveButton />
+          <Impressum sx={{ mt: 5 }} />
         </Box>
       </Grid>
     </Grid>

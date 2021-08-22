@@ -22,12 +22,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Impressum from "./impressum";
 
 export default function LunchProfileRead(props) {
-  const [dayselection, setDayselection] = useState({
+  const [lunchProfile, setLunchProfile] = useState({
     mon: true,
     tue: true,
     wed: true,
     thu: true,
     fri: true,
+    lunchtopic: 50,
   });
 
   const daymapping = {
@@ -44,7 +45,7 @@ export default function LunchProfileRead(props) {
   useEffect(() => {
     console.log("Use Effect with props:");
     console.log(props);
-    setDayselection(props.lunchdata);
+    setLunchProfile(props.lunchdata);
   }, [props]);
 
   function Emoji(props) {
@@ -63,7 +64,7 @@ export default function LunchProfileRead(props) {
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  <Emoji mood={dayselection.mon} />
+                  <Emoji mood={lunchProfile.mon} />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary="Montag" />
@@ -71,7 +72,7 @@ export default function LunchProfileRead(props) {
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  <Emoji mood={dayselection.tue} />
+                  <Emoji mood={lunchProfile.tue} />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary="Dienstag" />
@@ -79,7 +80,7 @@ export default function LunchProfileRead(props) {
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  <Emoji mood={dayselection.wed} />
+                  <Emoji mood={lunchProfile.wed} />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary="Mittwoch" />
@@ -87,7 +88,7 @@ export default function LunchProfileRead(props) {
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  <Emoji mood={dayselection.thu} />
+                  <Emoji mood={lunchProfile.thu} />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary="Donnerstag" />
@@ -95,7 +96,7 @@ export default function LunchProfileRead(props) {
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  <Emoji mood={dayselection.fri} />
+                  <Emoji mood={lunchProfile.fri} />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary="Freitag" />
@@ -146,9 +147,13 @@ export default function LunchProfileRead(props) {
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <DaysTable />
-            <Impressum sx={{ mt: 5 }} />
+            <Typography component="subtitle1" variant="subtitle1">
+              Auf einer Skala von 0-10, wobei 0 nur Privates und 10 nur Arbeit
+              ist, wäre mein Lieblingsthema eine {lunchProfile.lunchtopic / 10}
+            </Typography>
           </Box>
-        </Box>
+        </Box>{" "}
+        <Impressum sx={{ mt: 5 }} />
       </Grid>
     </Grid>
   );

@@ -24,8 +24,16 @@ async function insertUser(req) {
       public_id: authid.reader,
       private_id: authid.admin,
       name: "tbd",
+
       lunchprofile: {
-        create: { mon: true, tue: true, wed: true, thu: true, fri: true },
+        create: {
+          mon: true,
+          tue: true,
+          wed: true,
+          thu: true,
+          fri: true,
+          lunchtopic: 50,
+        },
       },
     },
   });

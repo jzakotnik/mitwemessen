@@ -22,9 +22,10 @@ async function updateUser(req) {
   const authid = req.body.authid.admin;
   console.log("Updating user");
   console.log(req.body);
-  const lunchprofile = req.body.dayselection;
-  //console.log(lunchprofile);
-  //console.log(authid);
+  const lunchprofile = req.body.lunchProfile;
+
+  console.log(lunchprofile);
+  console.log(authid);
 
   const updateLunch = await prisma.lunchProfile.update({
     where: {
