@@ -77,11 +77,11 @@ export default function LunchProfileAdmin(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     //setSaving(true);
-    console.log(event);
+    //console.log(event);
 
     const data = { lunchProfile, authid: { admin: authid } };
-    console.log("Saving..");
-    console.log(JSON.stringify(data));
+    //console.log("Saving..");
+    //console.log(JSON.stringify(data));
 
     fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + "/api/updateData", {
       method: "POST",

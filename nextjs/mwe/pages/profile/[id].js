@@ -6,8 +6,8 @@ import LunchProfileRead from "../lunchprofileread";
 const Profile = (data) => {
   const router = useRouter();
   const { id } = router.query;
-  console.log("Rendering data");
-  console.log(data, id);
+  //console.log("Rendering data");
+  //console.log(data, id);
 
   const readOnly = !data.admin;
   if (!readOnly) {
@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
   );
   const data = await res.json();
   console.log("Received response from API");
-  console.log(data);
+  //console.log(data);
 
   // Pass data to the page via props
   return { props: data };

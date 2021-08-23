@@ -20,12 +20,12 @@ Updating user
 
 async function updateUser(req) {
   const authid = req.body.authid.admin;
-  console.log("Updating user");
-  console.log(req.body);
+  //console.log("Updating user");
+  //console.log(req.body);
   const lunchprofile = req.body.lunchProfile;
 
-  console.log(lunchprofile);
-  console.log(authid);
+  //console.log(lunchprofile);
+  //console.log(authid);
 
   const updateLunch = await prisma.lunchProfile.update({
     where: {
@@ -38,10 +38,10 @@ async function updateUser(req) {
 
 export default async function handler(req, res) {
   console.log("Updating data into DB");
-  console.log(req.body);
+  //console.log(req.body);
 
   const newUser = await updateUser(req);
-  console.log("Updated user:" + newUser);
+  //console.log("Updated user:" + newUser);
 
   res.end().status(200);
 }

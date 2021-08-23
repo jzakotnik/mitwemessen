@@ -14,6 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
 
+import GaugeChart from "react-gauge-chart";
+
 import Switch from "@material-ui/core/Switch";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -43,8 +45,6 @@ export default function LunchProfileRead(props) {
   const readerid = props.reader;
 
   useEffect(() => {
-    console.log("Use Effect with props:");
-    console.log(props);
     setLunchProfile(props.lunchdata);
   }, [props]);
 
@@ -54,6 +54,36 @@ export default function LunchProfileRead(props) {
     } else {
       return <SentimentVeryDissatisfiedIcon color="error" />;
     }
+  }
+  function TopicGauge() {
+    return (
+      <Grid
+        container
+        spacing={0}
+        direction="row"
+        justifyContent="flex-start"
+        flex-basis="auto"
+        alignItems="center"
+        alignContent="flex-start"
+      >
+        <Grid item xs={4} sm={4} md={4}>
+          <Typography textAlign="end">Privat</Typography>
+        </Grid>
+        <Grid item xs={4} sm={4} md={4} justifyContent="flex-start">
+          <GaugeChart
+            id="gauge-chart3"
+            nrOfLevels={3}
+            colors={["#1A55D1", "#92D11A"]}
+            arcWidth={0.3}
+            percent={lunchProfile.lunchtopic / 100}
+            hideText={true}
+          />
+        </Grid>
+        <Grid item xs={4} sm={4} md={4}>
+          <Typography textAlign="start">Arbeit</Typography>
+        </Grid>
+      </Grid>
+    );
   }
 
   function DaysTable() {
@@ -147,10 +177,11 @@ export default function LunchProfileRead(props) {
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <DaysTable />
+
             <Typography component="subtitle1" variant="subtitle1">
-              Auf einer Skala von 0-10, wobei 0 nur Privates und 10 nur Arbeit
-              ist, wäre mein Lieblingsthema eine {lunchProfile.lunchtopic / 10}
+              Am liebsten spreche ich über:
             </Typography>
+            <TopicGauge />
           </Box>
         </Box>{" "}
         <Impressum sx={{ mt: 5 }} />
