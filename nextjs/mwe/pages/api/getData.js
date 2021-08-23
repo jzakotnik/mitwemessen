@@ -29,7 +29,11 @@ export default async function handler(req, res) {
   if (result2 != null) {
     return res
       .status(200)
-      .json({ admin: true, lunchprofile: result2.lunchprofile });
+      .json({
+        admin: true,
+        public_id: result2.public_id,
+        lunchprofile: result2.lunchprofile,
+      });
   }
   //found nothing
   return res.status(400).end();

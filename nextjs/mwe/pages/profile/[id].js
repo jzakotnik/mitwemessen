@@ -15,6 +15,7 @@ const Profile = (data) => {
       <LunchProfileAdmin
         lunchdata={data.lunchprofile}
         authid={id}
+        readerid={data.public_id}
         readOnly={readOnly}
         userName="Jure"
       />
@@ -41,7 +42,7 @@ export async function getServerSideProps(context) {
   );
   const data = await res.json();
   console.log("Received response from API");
-  //console.log(data);
+  console.log(data);
 
   // Pass data to the page via props
   return { props: data };

@@ -20,6 +20,14 @@ import Slider from "@material-ui/core/Slider";
 import Switch from "@material-ui/core/Switch";
 import Divider from "@material-ui/core/Divider";
 import Impressum from "./impressum";
+import IconButton from "@material-ui/core/IconButton";
+import QRCode from "qrcode.react";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const marks = [
   {
@@ -68,7 +76,13 @@ export default function LunchProfileAdmin(props) {
   const [saving, setSaving] = useState(false);
 
   const authid = props.authid;
-  const readerid = props.reader;
+  const readerid = props.readerid;
+  const readerLink = process.env.NEXT_PUBLIC_PROFILE_ENDPOINT + "/" + readerid;
+  console.log("Reader Link: ", props);
+
+  const handleCopyReader = (event) => {
+    navigator.clipboard.writeText(readerLink);
+  };
 
   useEffect(() => {
     setLunchProfile(props.lunchdata);
@@ -260,6 +274,31 @@ export default function LunchProfileAdmin(props) {
             />
           </Box>
           <SaveButton />
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Öffentliche Links (ready-only)</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="subtitle2">
+                <b>Nur-Lesen Link</b>
+                <IconButton aria-label="copy" onClick={handleCopyReader}>
+                  <FileCopyIcon />
+                </IconButton>{" "}
+                <br></br>
+                <a href={readerLink} target="_blank" rel="noopener noreferrer">
+                  {readerLink}
+                </a>
+                <br></br>
+                <center>
+                  <QRCode value={readerLink} />
+                </center>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
           <Impressum sx={{ mt: 5 }} />
         </Box>
       </Grid>
