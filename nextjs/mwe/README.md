@@ -9,6 +9,10 @@ In hybrid work models, you need to know, on which days someone is in the office 
 <img src="docs/screen3.png" width=300>
 <img src="docs/screen4.png" width=300>
 
+## Demo
+
+Have a look at the [Demo Site](https://mitwemessen.de)
+
 ## Getting started
 
 - Install node
