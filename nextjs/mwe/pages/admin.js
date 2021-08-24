@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import QRCode from "qrcode.react";
 
 import { v4 as uuidv4 } from "uuid";
+import { Divider } from "@material-ui/core";
 
 function Impressum(props) {
   return (
@@ -151,6 +152,13 @@ export default function Admin(props) {
           <Typography component="h1" variant="h5">
             Links zum Lunchprofil erzeugen
           </Typography>
+          <Typography component="body1" variant="body1" paragraph="true">
+            Was macht dieses Tool? In Zeiten von hybridem Arbeiten ist es
+            schwierig rauszufinden, an welchen Tagen man ein gemeinsames
+            Lunch-Date machen kann. Ziel ist es, ein kleines Lunch Profil zu
+            haben, auf dem steht an welchen Tagen man prinzipiell Zeit hat.
+          </Typography>
+
           <Typography component="body1" variant="body1">
             Wenn Du <i>Erzeugen</i> klickst werden zwei Web-Links erzeugt, mit
             denen Du Dein Lunch-Profil verwalten kannst.
