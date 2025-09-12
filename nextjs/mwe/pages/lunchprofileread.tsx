@@ -26,14 +26,15 @@ function Impressum({ className = "" }: { className?: string }) {
   );
 }
 
-const dayLabels: { key: keyof LunchData; label: string }[] = [
+type DayKey = "mon" | "tue" | "wed" | "thu" | "fri";
+
+const dayLabels: { key: DayKey; label: string }[] = [
   { key: "mon", label: "Montag" },
   { key: "tue", label: "Dienstag" },
   { key: "wed", label: "Mittwoch" },
   { key: "thu", label: "Donnerstag" },
   { key: "fri", label: "Freitag" },
 ];
-
 const moodEmoji = (ok: boolean) => (ok ? "😊" : "🙁");
 
 const LunchProfileRead: React.FC<LunchProfileReadProps> = ({ lunchdata }) => {
