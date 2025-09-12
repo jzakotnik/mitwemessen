@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 
 const IndexRedirect = () => {
   return <p>Redirecting to Admin page</p>;
 };
 
 // This gets called on every request
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   return {
     redirect: {
       destination: "/admin",
