@@ -16,7 +16,7 @@ const prisma = new PrismaClient();
 
 async function insertUser(req) {
   const authid = req.body.authid;
-  console.log(req.body);
+  console.log("insert user", req.body);
   //const lunchprofile = req.body.dayselection;
 
   await prisma.user.create({

@@ -114,3 +114,6 @@ nextjs/mwe/prisma/mwe.db
 nextjs/mwe/prisma/mwe.db
 nextjs/mwe/prisma/mwe.db-journal
 nextjs/mwe/.env.local
+nextjs/.DS_Store
+.DS_Store
+.gitignore

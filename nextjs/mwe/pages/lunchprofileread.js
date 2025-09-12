@@ -14,8 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
 
-import GaugeChart from "react-gauge-chart";
-
 import Switch from "@material-ui/core/Switch";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -56,7 +54,8 @@ export default function LunchProfileRead(props) {
     }
   }
   function TopicGauge() {
-    return (
+    return <div></div>;
+    /*return (
       <Grid
         container
         spacing={0}
@@ -83,7 +82,7 @@ export default function LunchProfileRead(props) {
           <Typography textAlign="start">Arbeit</Typography>
         </Grid>
       </Grid>
-    );
+    );*/
   }
 
   function DaysTable() {
