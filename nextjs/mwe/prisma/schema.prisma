@@ -27,5 +27,4 @@ model LunchProfile {
     lunchtopic Int     @default(50)
 
     user User @relation(fields: [id], references: [private_id])
-
 }
