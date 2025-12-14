@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     });
 
     if (privateUser) {
-      logger.info({ event: LogEvents.LUNCH_GET, admin: true }, "Fetched lunch profile (admin)");
+      logger.info({ event: LogEvents.LUNCH_GET, userId: id, admin: false }, "Fetched lunch profile (admin)");
       return res.status(200).json({
         admin: true,
         public_id: privateUser.public_id,
