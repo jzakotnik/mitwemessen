@@ -1,30 +1,16 @@
 import { PrismaClient } from "@prisma/client";
-import { v4 as uuidv4 } from "uuid";
+import pino from "pino";
+import { LogEvents } from "@/lib/logEvents"; 
 
+const logger = pino({ name: "lunch-api" });
 const prisma = new PrismaClient();
 
-/*
-{
-  authid: {
-    admin: 'ebb785b4-d140-40fc-9cd7-577d121bed23',
-    reader: 'f05ddd03-1013-4b86-9a66-cf0b78ceac01'
-  },
-  dayselection: { mon: true, tue: true, wed: true, thu: true, fri: true }
-}
-
-*/
-
-async function insertUser(req) {
-  const authid = req.body.authid;
-  console.log("insert user", req.body);
-  //const lunchprofile = req.body.dayselection;
-
-  await prisma.user.create({
+async function createUser(authid) {
+  return prisma.user.create({
     data: {
       public_id: authid.reader,
       private_id: authid.admin,
       name: "tbd",
-
       lunchprofile: {
         create: {
           mon: true,
@@ -36,17 +22,33 @@ async function insertUser(req) {
         },
       },
     },
+    include: { lunchprofile: true },
   });
-  return prisma.user.findMany();
 }
 
 export default async function handler(req, res) {
-  console.log("Inserting data into DB");
-  console.log(req.body);
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-  const allUsers = await insertUser(req);
-  console.log("Inserted user:");
-  console.dir(allUsers);
+  const authid = req.body?.authid;
 
-  res.end().status(200);
+  if (!authid?.admin || !authid?.reader) {
+    logger.warn({ event: LogEvents.LUNCH_CREATE }, "Missing or invalid authid");
+    return res.status(400).json({ error: "Missing or invalid authid" });
+  }
+
+  try {
+    const user = await createUser(authid);
+
+    logger.info(
+      { event: LogEvents.LUNCH_CREATE, publicId: authid.reader },
+      "Created new user with lunch profile"
+    );
+
+    return res.status(201).json(user);
+  } catch (error) {
+    logger.error({ event: LogEvents.DB_ERROR, error }, "Failed to create user");
+    return res.status(500).json({ error: "Internal server error" });
+  }
 }

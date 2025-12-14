@@ -100,14 +100,14 @@ const LunchProfileAdmin: React.FC<LunchProfileAdminProps> = ({
 
       const data = { lunchProfile, authid: { admin: authid } };
       const res = await fetch(`${API_ENDPOINT}/api/updateData`, {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || `Fehler: ${res.status}`);
+        const errorData = await res.json().catch(() => null);
+        throw new Error(errorData?.error || `Fehler: ${res.status}`);
       }
 
       setStatus("Gespeichert!");
